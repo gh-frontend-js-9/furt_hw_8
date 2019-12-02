@@ -6,32 +6,32 @@
     </head>
     <body>
         <div class="main-section">
-            <div class="image main-section__image">
-                <img class="image__mood" src="img/happy.jpg" alt="happy" width="170px">
+            <div  class="main-section__pet">
+                <img class="pet__mood" id="pet" src="img/happy.jpg" alt="happy" width="170px">
             </div>
 
             <div class="stats main-section__stats">
                 <h3 class="stats__title">Stats</h3>
 
                 <div  class="stats__bars">Food:
-                    <p class="stats__food--percent">50%</p>
+                    <p id="stats__food--percent"></p>
                 </div>
                 <div class="stats__bars">Clean:
-                    <p class="stats__clean--percent">80%</p>
+                    <p id="stats__clean--percent"></p>
                 </div>
                 <div class="stats__bars">Happiness:
-                    <p class="stats__happiness--percent">70%</p>
+                    <p id="stats__happiness--percent"></p>
                 </div>
             </div>
 
             <div class="button main-section__button">
-                <button class="button__actions button__actions--eat">Eat</button>
-                <button class="button__actions button__actions--wash">Wash</button>
-                <button class="button__actions button__actions--run">Run</button>
+                <button class="button__actions button__actions--eat" onclick="feed()">Eat</button>
+                <button class="button__actions button__actions--wash" onclick="bath()">Wash</button>
+                <button class="button__actions button__actions--run" onclick="run()">Run</button>
             </div>
-
         </div>
-
+        <div id="massage" ></div>
+        <div id="restart" onclick='window.location.reload()'></div>
         <script src="js/main.js"></script>
     </body>
 </html>
