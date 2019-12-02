@@ -33,11 +33,10 @@
     ◦ Challenge 1
         ▪ URL: https:
         ▪ Solutions:
-
 6. Objects 
     ◦ Challenge 1
-        ▪ URL: 
-        ▪ Solutions: 
+        ▪ URL: https://edabit.com/challenge/5Yt2CrYdrJvoJFHRt
+        ▪ Solutions: https://www.dropbox.com/scl/fi/arl00kcxdrqq3kjrsizwm/Obj.paper?dl=0&rlkey=zkk3v4vdue5k16xi0nc23le3g
      Challenge 2
         ▪ URL: 
         ▪ Solutions: 
