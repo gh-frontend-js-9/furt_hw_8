@@ -1,27 +1,31 @@
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-let food = getRandomInt(50, 70);
-let clean = getRandomInt(50, 70);
-let happiness = getRandomInt(50, 70);
+let foodPoints = getRandomInt(50, 70);
+let cleanPoints = getRandomInt(50, 70);
+let happinessPoints = getRandomInt(50, 70);
 let initialIteration = true;
+let overallRate = foodPoints + cleanPoints + happinessPoints;
 
-function renewal(time = 5) {
-    let overallRate = food + clean + happiness;
+function percentageFormatter(value) {
+    return value + "%";
+}
 
-    if (food <= 0 || clean <= 0 || happiness <= 0) {
-
+function renewal(reduceByPoint = 5) {
+    function isTamagochiDied() {
+        return (foodPoints <= 0 || cleanPoints <= 0 || happinessPoints <= 0)
+    }
+    if (isTamagochiDied()) {
         document.getElementById("pet").src = "img/verybad.png";
         document.getElementById('massage').innerHTML = 'Your pet is dead. You can restart the game and start over.' ;
 
         if (initialIteration){
-            let btn = document.getElementById('restart');
-            let createButton = document.createElement ('button');      //новый эл button
-            createButton.innerHTML = 'restart';     //содержание кнопки
-            btn.appendChild(createButton); //вставить в конец элемента переданный элемент
+            let restartContainerElem = document.getElementById('restart');
+            let buttonElem = document.createElement ('button');   //новый эл button
+            buttonElem.innerHTML = 'restart';     //содержание кнопки
+            restartContainerElem.appendChild(buttonElem); //вставить в конец элемента переданный элемент
         }
-
-     initialIteration = false;
+        initialIteration = false;
 
     } else if (overallRate > 170) {
         document.getElementById("pet").src = "img/happy.jpg";
@@ -33,33 +37,40 @@ function renewal(time = 5) {
         document.getElementById("pet").src = "img/bad.jpg";
     }
 
-    food = food - parseInt(time);
-    clean = clean - parseInt(time);
-    happiness = happiness - parseInt(time);
+    foodPoints = foodPoints - parseInt(reduceByPoint);
+    cleanPoints = cleanPoints - parseInt(reduceByPoint);
+    happinessPoints = happinessPoints - parseInt(reduceByPoint);
 
-    document.getElementById('stats__food--percent').innerHTML = food + '%';
-    document.getElementById('stats__clean--percent').innerHTML = clean + '%';
-    document.getElementById('stats__happiness--percent').innerHTML = happiness + '%';
+
+    document.getElementById('stats__food--percent').innerHTML = percentageFormatter(foodPoints);
+    document.getElementById('stats__clean--percent').innerHTML = percentageFormatter(cleanPoints);
+    document.getElementById('stats__happiness--percent').innerHTML = percentageFormatter(happinessPoints);
 }
-    function feed() {
-        if ( food + 30 <= 70) {
-            return [food+=30, clean -= 20];
-        }
-        document.getElementById('stats__food--percent').innerHTML = food + '%';
-    }
-    function bath(){
-        if ( clean+40<= 70) {
-            return [clean+= 40, happiness-=20] ;
-        }
 
-        document.getElementById('stats__clean--percent').innerHTML = clean + '%';
+function isRunOutOfMaxStatPoints(result) {
+    return result <= 70;
+}
+function feed(){
+    result = foodPoints + 30;
+    if ( isRunOutOfMaxStatPoints(result)){
+        return [foodPoints += 30, cleanPoints -= 20];
     }
-    function run(){
-        if ( happiness+15<= 70) {
-            return [happiness += 15, food-=10];
-        }
-        document.getElementById('stats__happiness--percent').innerHTML = happiness + '%';
+    document.getElementById('stats__food--percent').innerHTML = percentageFormatter(foodPoints);
+}
+function bath(){
+    result = cleanPoints + 40;
+    if ( isRunOutOfMaxStatPoints(result)){
+        return [ cleanPoints += 40, happinessPoints -= 20];
     }
+    document.getElementById('stats__clean--percent').innerHTML = percentageFormatter(cleanPoints);
+}
+function run(){
+    result = happinessPoints+15;
+    if ( isRunOutOfMaxStatPoints(result)){
+        return [happinessPoints+=15, foodPoints-=10];
+    }
+    document.getElementById('stats__happiness--percent').innerHTML = percentageFormatter(happinessPoints);
+}
 
 function start(){
     setInterval(renewal, 5000);
